@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MasterClassModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Attend">
+          <Key>
+            <PropertyRef Name="Class_ID" />
+            <PropertyRef Name="Stu_ID" />
+          </Key>
+          <Property Name="Class_ID" Type="int" Nullable="false" />
+          <Property Name="Stu_ID" Type="int" Nullable="false" />
+          <Property Name="Att_Interactions" Type="int" />
+        </EntityType>
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="Class_ID" />
+          </Key>
+          <Property Name="Class_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Class_Name" Type="varchar" MaxLength="255" />
+          <Property Name="TeachID" Type="int" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="Stu_ID" />
+          </Key>
+          <Property Name="Stu_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Stu_Fname" Type="varchar" MaxLength="255" />
+          <Property Name="Stu_Lname" Type="varchar" MaxLength="255" />
+          <Property Name="TeachID" Type="int" />
+          <Property Name="Stu_Pic" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Teacher">
+          <Key>
+            <PropertyRef Name="Teach_ID" />
+          </Key>
+          <Property Name="Teach_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Teach_Fname" Type="varchar" MaxLength="255" />
+          <Property Name="Teach_Lname" Type="varchar" MaxLength="255" />
+          <Property Name="Teach_Email" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Teach_Password" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Attend__Class_ID__3F466844">
+          <End Role="Class" Type="Self.Class" Multiplicity="1" />
+          <End Role="Attend" Type="Self.Attend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="Class_ID" />
+            </Principal>
+            <Dependent Role="Attend">
+              <PropertyRef Name="Class_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Attend__Stu_ID__403A8C7D">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="Attend" Type="Self.Attend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Stu_ID" />
+            </Principal>
+            <Dependent Role="Attend">
+              <PropertyRef Name="Stu_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Class__TeachID__3C69FB99">
+          <End Role="Teacher" Type="Self.Teacher" Multiplicity="0..1" />
+          <End Role="Class" Type="Self.Class" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="Teach_ID" />
+            </Principal>
+            <Dependent Role="Class">
+              <PropertyRef Name="TeachID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student__TeachID__398D8EEE">
+          <End Role="Teacher" Type="Self.Teacher" Multiplicity="0..1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="Teach_ID" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="TeachID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MasterClassModelStoreContainer">
+          <EntitySet Name="Attend" EntityType="Self.Attend" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teacher" EntityType="Self.Teacher" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Attend__Class_ID__3F466844" Association="Self.FK__Attend__Class_ID__3F466844">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="Attend" EntitySet="Attend" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Attend__Stu_ID__403A8C7D" Association="Self.FK__Attend__Stu_ID__403A8C7D">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="Attend" EntitySet="Attend" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Class__TeachID__3C69FB99" Association="Self.FK__Class__TeachID__3C69FB99">
+            <End Role="Teacher" EntitySet="Teacher" />
+            <End Role="Class" EntitySet="Class" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student__TeachID__398D8EEE" Association="Self.FK__Student__TeachID__398D8EEE">
+            <End Role="Teacher" EntitySet="Teacher" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MasterClassModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Attend">
+          <Key>
+            <PropertyRef Name="Class_ID" />
+            <PropertyRef Name="Stu_ID" />
+          </Key>
+          <Property Name="Class_ID" Type="Int32" Nullable="false" />
+          <Property Name="Stu_ID" Type="Int32" Nullable="false" />
+          <Property Name="Att_Interactions" Type="Int32" />
+          <NavigationProperty Name="Class" Relationship="Self.FK__Attend__Class_ID__3F466844" FromRole="Attend" ToRole="Class" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__Attend__Stu_ID__403A8C7D" FromRole="Attend" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="Class_ID" />
+          </Key>
+          <Property Name="Class_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Class_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TeachID" Type="Int32" />
+          <NavigationProperty Name="Attends" Relationship="Self.FK__Attend__Class_ID__3F466844" FromRole="Class" ToRole="Attend" />
+          <NavigationProperty Name="Teacher" Relationship="Self.FK__Class__TeachID__3C69FB99" FromRole="Class" ToRole="Teacher" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="Stu_ID" />
+          </Key>
+          <Property Name="Stu_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Stu_Fname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Stu_Lname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TeachID" Type="Int32" />
+          <NavigationProperty Name="Attends" Relationship="Self.FK__Attend__Stu_ID__403A8C7D" FromRole="Student" ToRole="Attend" />
+          <NavigationProperty Name="Teacher" Relationship="Self.FK__Student__TeachID__398D8EEE" FromRole="Student" ToRole="Teacher" />
+          <Property Name="Stu_Pic" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Teacher">
+          <Key>
+            <PropertyRef Name="Teach_ID" />
+          </Key>
+          <Property Name="Teach_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Teach_Fname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Teach_Lname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Teach_Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Teach_Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Classes" Relationship="Self.FK__Class__TeachID__3C69FB99" FromRole="Teacher" ToRole="Class" />
+          <NavigationProperty Name="Students" Relationship="Self.FK__Student__TeachID__398D8EEE" FromRole="Teacher" ToRole="Student" />
+        </EntityType>
+        <Association Name="FK__Attend__Class_ID__3F466844">
+          <End Role="Class" Type="Self.Class" Multiplicity="1" />
+          <End Role="Attend" Type="Self.Attend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="Class_ID" />
+            </Principal>
+            <Dependent Role="Attend">
+              <PropertyRef Name="Class_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Attend__Stu_ID__403A8C7D">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="Attend" Type="Self.Attend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Stu_ID" />
+            </Principal>
+            <Dependent Role="Attend">
+              <PropertyRef Name="Stu_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Class__TeachID__3C69FB99">
+          <End Role="Teacher" Type="Self.Teacher" Multiplicity="0..1" />
+          <End Role="Class" Type="Self.Class" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="Teach_ID" />
+            </Principal>
+            <Dependent Role="Class">
+              <PropertyRef Name="TeachID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student__TeachID__398D8EEE">
+          <End Role="Teacher" Type="Self.Teacher" Multiplicity="0..1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="Teach_ID" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="TeachID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MasterClassEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Attends" EntityType="Self.Attend" />
+          <EntitySet Name="Classes" EntityType="Self.Class" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <EntitySet Name="Teachers" EntityType="Self.Teacher" />
+          <AssociationSet Name="FK__Attend__Class_ID__3F466844" Association="Self.FK__Attend__Class_ID__3F466844">
+            <End Role="Class" EntitySet="Classes" />
+            <End Role="Attend" EntitySet="Attends" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Attend__Stu_ID__403A8C7D" Association="Self.FK__Attend__Stu_ID__403A8C7D">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="Attend" EntitySet="Attends" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Class__TeachID__3C69FB99" Association="Self.FK__Class__TeachID__3C69FB99">
+            <End Role="Teacher" EntitySet="Teachers" />
+            <End Role="Class" EntitySet="Classes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student__TeachID__398D8EEE" Association="Self.FK__Student__TeachID__398D8EEE">
+            <End Role="Teacher" EntitySet="Teachers" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MasterClassModelStoreContainer" CdmEntityContainer="MasterClassEntities">
+          <EntitySetMapping Name="Attends">
+            <EntityTypeMapping TypeName="MasterClassModel.Attend">
+              <MappingFragment StoreEntitySet="Attend">
+                <ScalarProperty Name="Class_ID" ColumnName="Class_ID" />
+                <ScalarProperty Name="Stu_ID" ColumnName="Stu_ID" />
+                <ScalarProperty Name="Att_Interactions" ColumnName="Att_Interactions" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Classes">
+            <EntityTypeMapping TypeName="MasterClassModel.Class">
+              <MappingFragment StoreEntitySet="Class">
+                <ScalarProperty Name="Class_ID" ColumnName="Class_ID" />
+                <ScalarProperty Name="Class_Name" ColumnName="Class_Name" />
+                <ScalarProperty Name="TeachID" ColumnName="TeachID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="MasterClassModel.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="Stu_Pic" ColumnName="Stu_Pic" />
+                <ScalarProperty Name="Stu_ID" ColumnName="Stu_ID" />
+                <ScalarProperty Name="Stu_Fname" ColumnName="Stu_Fname" />
+                <ScalarProperty Name="Stu_Lname" ColumnName="Stu_Lname" />
+                <ScalarProperty Name="TeachID" ColumnName="TeachID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teachers">
+            <EntityTypeMapping TypeName="MasterClassModel.Teacher">
+              <MappingFragment StoreEntitySet="Teacher">
+                <ScalarProperty Name="Teach_ID" ColumnName="Teach_ID" />
+                <ScalarProperty Name="Teach_Fname" ColumnName="Teach_Fname" />
+                <ScalarProperty Name="Teach_Lname" ColumnName="Teach_Lname" />
+                <ScalarProperty Name="Teach_Email" ColumnName="Teach_Email" />
+                <ScalarProperty Name="Teach_Password" ColumnName="Teach_Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

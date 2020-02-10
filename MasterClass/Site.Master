@@ -1,0 +1,41 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="MasterClass.Site" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title>Master Page</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <%--<link href="Content/bootstrap.min.css" rel="stylesheet" />--%>
+    <link href="Content/bootstrap-sketchy.min.css" rel="stylesheet" />
+    <%--<link href="Content/bootstrap-solar.min.css" rel="stylesheet" />--%>
+    <%--<link href="Content/bootstrap-slate.min.css" rel="stylesheet" />--%>
+    <link href="Content/site.css" rel="stylesheet" />
+    <%--<script src="Scripts/jquery-3.0.0.min.js"></script>--%>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <header>
+            <div class="jumbotron mb-1">
+                <h1 class="text-main">MasterClass</h1>
+            </div>
+        </header>
+        <nav>
+            <asp:ContentPlaceHolder ID="NavPlaceHolder" runat="server">
+            </asp:ContentPlaceHolder>
+        </nav>
+        <main>
+            <asp:ContentPlaceHolder ID="MainPlaceHolder" runat="server">
+            </asp:ContentPlaceHolder>
+        </main>
+        <footer>
+            <asp:ContentPlaceHolder ID="FooterPlaceHolder" runat="server">
+            </asp:ContentPlaceHolder>
+        </footer>
+    </form>
+</body>
+</html>

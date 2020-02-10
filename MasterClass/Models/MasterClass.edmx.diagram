@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3460f661be0d46b7aa5f7082155dc635" Name="Diagram1">
+        <EntityTypeShape EntityType="MasterClassModel.Attend" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MasterClassModel.Class" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MasterClassModel.Student" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MasterClassModel.Teacher" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <AssociationConnector Association="MasterClassModel.FK__Attend__Class_ID__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="MasterClassModel.FK__Attend__Stu_ID__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="MasterClassModel.FK__Class__TeachID__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="MasterClassModel.FK__Student__TeachID__398D8EEE" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
