@@ -6,7 +6,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="MainPlaceHolder" runat="server">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 GridContainer">
                 <asp:GridView ID="grdClass" runat="server" ItemType="MasterClass.Models.Class" SelectMethod="grdClass_GetData" AutoGenerateColumns="false" DataKeyNames="Class_ID" 
                     CssClass="table table-bordered table-condensed" OnSelectedIndexChanged="grdClass_SelectedIndexChanged">
                     <Columns>
@@ -19,10 +19,12 @@
                         </asp:TemplateField>
                         <asp:TemplateField>
                             <ItemTemplate>
-                                <asp:Button ID="btnClassSelect" runat="server" Text="Select" CommandName="Select" CssClass="btn btn-secondary col-md-4" CustomProp="<%# Item.Class_ID %>" OnClick="btnClassSelect_Click"/>
-                                <asp:Button ID="btnClassRun" runat="server" Text="Run" CssClass="btn btn-primary col-md-4" OnClick="btnClassRun_Click" CustomProp="<%# Item.Class_ID %>"/>
+                                <asp:LinkButton ID="lbtnClassSelect" runat="server" CommandName="Select" CssClass="btn btn-secondary col-md-4" OnClick="btnClassSelect_Click" PostBackUrl='<%# "~/SelectClass.aspx?id=" +  Item.Class_ID %>'>Select</asp:LinkButton>
+                                <%--<asp:Button ID="btnClassSelect" runat="server" Text="Select" CommandName="Select" CssClass="btn btn-secondary col-md-4" CustomProp="<%# Item.Class_ID %>" OnClick="btnClassSelect_Click"/>--%>
+                                <asp:LinkButton ID="lbtnClassRun" runat="server" CssClass="btn btn-primary col-md-4" OnClick="btnClassRun_Click" PostBackUrl='<%# "~/SelectClass.aspx?id=" + Item.Class_ID %>'>Run</asp:LinkButton>
+                                <%--<asp:Button ID="btnClassRun" runat="server" Text="Run" CssClass="btn btn-primary col-md-4" OnClick="btnClassRun_Click" CustomProp="<%# Item.Class_ID %>"/>--%>
                             </ItemTemplate>
-                        </asp:TemplateField>    
+                        </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
             </div>
@@ -43,11 +45,11 @@
                                 </ItemTemplate>
                                 <InsertItemTemplate>
                                     <asp:DropDownList ID="ddlInsertTeacher" runat="server" SelectMethod="ddlInsertTeacher_GetData"
-                                        DataValueField="Teach_ID" DataTextField="Teach_Lname" SelectedValue="<%# Bind('TeachID') %>"></asp:DropDownList>
+                                        DataValueField="Teach_ID" DataTextField="Teach_Lname" SelectedValue='<%# Bind("TeachID") %>'></asp:DropDownList>
                                 </InsertItemTemplate>
                                 <EditItemTemplate>
                                     <asp:DropDownList ID="ddlEditTeacher" runat="server" SelectMethod="ddlInsertTeacher_GetData"
-                                        DataValueField="Teach_ID" DataTextField="Teach_Lname" SelectedValue="<%# Bind('TeachID') %>"></asp:DropDownList>
+                                        DataValueField="Teach_ID" DataTextField="Teach_Lname" SelectedValue='<%# Bind("TeachID") %>'></asp:DropDownList>
                                 </EditItemTemplate>
                             </asp:TemplateField>
                             <asp:CommandField ShowInsertButton="true" ShowEditButton="true" ShowDeleteButton="true" />
@@ -85,7 +87,7 @@
                                     <asp:Label ID="Label4" runat="server" Text="<%# Item.Stu_Fname %>"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:Image ID="Image1" runat="server" ImageUrl='<%# $"~\\Images\\{Item.Stu_Pic}" %>' CssClass="img-thumbnail col-md-8 img-cover-small" />
+                                    <asp:Image ID="Image1" runat="server" ImageUrl='<%# $"~\\Images\\{GetImage(Item.Stu_Pic)}" %>' CssClass="img-thumbnail col-md-8 img-cover-small" />
                                 </td>
                                 <td>
                                     <div class="btn-group" role="group">

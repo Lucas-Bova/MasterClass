@@ -6,6 +6,7 @@
 }*/
 .GridContainer div{
     overflow: auto;
+    height: 20rem;
 }
 .lv_table {
     overflow: scroll;

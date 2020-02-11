@@ -8,6 +8,7 @@ using MasterClass.Models;
 using System.Web.ModelBinding;
 using System.Data;
 using System.Web.UI.HtmlControls;
+using System.IO;
 
 namespace MasterClass
 {
@@ -22,7 +23,8 @@ namespace MasterClass
 
         protected void Page_Init(object sender, EventArgs e)
         {
-            ClassID = Convert.ToInt32(Session["ClassID"]);
+            //ClassID = Convert.ToInt32(Session["ClassID"]);
+            ClassID = Convert.ToInt32(Request.QueryString["id"]);
             Build_Cards();
         }
 
@@ -52,6 +54,7 @@ namespace MasterClass
 
             item.Att_Interactions++;
             db.SaveChanges();
+            Response.Redirect("~/newGrid.aspx?id=" + ClassID);
         }
 
         private void Build_Cards()
@@ -76,7 +79,7 @@ namespace MasterClass
                 Literal h5 = new Literal();
                 h5.Text = $"<h5 class=\"card-title card-responsive-text\"> {data.ElementAt(i).Student.Stu_Fname} {data.ElementAt(i).Student.Stu_Lname} </h5>";
                 Literal p = new Literal();
-                p.Text = $"<span class=\"card-text card-responsive-text\"> Interactions - {data.ElementAt(i).Att_Interactions} </span>";
+                p.Text = $"<span class=\"card-text card-responsive-text\"> Interactions - <h2> {data.ElementAt(i).Att_Interactions} </h2> </span>";
                 p.EnableViewState = true;
                 LinkButton btnCard = new LinkButton();
                 btnCard.Width = 0;
@@ -97,6 +100,10 @@ namespace MasterClass
         private string GetImage(string pic)
         {
             if (pic == null)
+            {
+                return "default.jpg";
+            }
+            else if (!File.Exists(Server.MapPath("/Images/" + pic)))
             {
                 return "default.jpg";
             }

@@ -8,6 +8,7 @@ using MasterClass.Models;
 using System.Web.ModelBinding;
 using System.Drawing;
 using System.Data;
+using System.IO;
 
 namespace MasterClass
 {
@@ -18,7 +19,7 @@ namespace MasterClass
         {
             if (!IsPostBack)
             {
-                grdClass.Rows[0].BackColor = ColorTranslator.FromHtml("#A1DCF2");
+                grdClass.Rows[0].ForeColor = ColorTranslator.FromHtml("#05c1af");
             }
             if (Session["ClassID"] == null)
             {
@@ -195,8 +196,9 @@ namespace MasterClass
         //onclick for grdclass select btn
         protected void btnClassSelect_Click(object sender, EventArgs e)
         {
-            Button btn = (Button)sender;
-            var id = btn.Attributes["CustomProp"];
+            var id = Request.QueryString["id"];
+            //Button btn = (Button)sender;
+            //var id = btn.Attributes["CustomProp"];
             Session["ClassID"] = id;
             lvStudents.DataBind();
         }
@@ -224,22 +226,24 @@ namespace MasterClass
             {
                 if (row.RowIndex == grdClass.SelectedIndex)
                 {
-                    row.BackColor = ColorTranslator.FromHtml("#A1DCF2");
+                    row.ForeColor = ColorTranslator.FromHtml("#05c1af");
                 }
                 else
                 {
-                    row.BackColor = ColorTranslator.FromHtml("#FFFFFF");
+                    row.ForeColor = ColorTranslator.FromHtml("#212529");
                 }
             }
         }
 
         protected void btnClassRun_Click(object sender, EventArgs e)
         {
-            Button btn = (Button)sender;
-            var id = btn.Attributes["CustomProp"];
-            Session["ClassID"] = id;
+            var id = Request.QueryString["id"];
+            //Button btn = (Button)sender;
+            //var id = btn.Attributes["CustomProp"];
+            //Session["ClassID"] = id;
 
-            Response.Redirect("~/newGrid.aspx");
+            //Response.Redirect("~/newGrid.aspx");
+            Response.Redirect("~/newGrid.aspx?id=" + id);
         }
 
         //updating picture
@@ -249,7 +253,9 @@ namespace MasterClass
             FileUpload fu = (FileUpload)lvStudents.EditItem.FindControl("FileUpload1");
             if (fu.HasFile)
              {
-                string path = "C:\\Users\\lbova\\source\\repos\\MasterClass\\MasterClass\\Images\\" + fu.FileName; try
+                //string path = "C:\\Users\\lbova\\source\\repos\\MasterClass\\MasterClass\\Images\\" + fu.FileName; try
+                string path = Server.MapPath("/Images/" + fu.FileName);
+                try
                 {
                     fu.SaveAs(path);
                     //update db
@@ -270,7 +276,7 @@ namespace MasterClass
             }
         }
 
-        protected void lvStudents_ItemInserted(object sender, ListViewInsertedEventArgs e) //not working
+        protected void lvStudents_ItemInserted(object sender, ListViewInsertedEventArgs e) //change schema to support fname lname composite key for student
         {
             var li = e.Values.Values;
             String[] vals = li.OfType<String>().ToArray();
@@ -298,7 +304,9 @@ namespace MasterClass
             FileUpload fu = (FileUpload)lvStudents.InsertItem.FindControl("FileUpload2");
             if (fu.HasFile)
             {
-                string path = "C:\\Users\\lbova\\source\\repos\\MasterClass\\MasterClass\\Images\\" + fu.FileName; try
+                //string path = "C:\\Users\\lbova\\source\\repos\\MasterClass\\MasterClass\\Images\\" + fu.FileName; try
+                string path = Server.MapPath("/images/" + fu.FileName);
+                try
                 {
                     fu.SaveAs(path);
                     Session["FileName"] = fu.FileName;
@@ -307,6 +315,22 @@ namespace MasterClass
                 {
                     //lblMessage.Text = ex.Message;
                 }
+            }
+        }
+
+        protected string GetImage(string pic) //this method is a copy from newgrid.aspx.cs
+        {
+            if (pic == null)
+            {
+                return "default.jpg";
+            }
+            else if (!File.Exists(Server.MapPath("/Images/" + pic)))
+            {
+                return "default.jpg";
+            }
+            else
+            {
+                return pic;
             }
         }
     }
